@@ -18,7 +18,10 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text("Teste Upload"),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.file_upload),onPressed: _onClickUpload,)
+          IconButton(
+            icon: Icon(Icons.file_upload),
+            onPressed: _onClickUpload,
+          )
         ],
       ),
       body: Center(
@@ -33,10 +36,9 @@ class _HomePageState extends State<HomePage> {
             ),
             file != null
                 ? Image.file(file)
-                : Icon(
-                    Icons.not_interested,
-                    size: 40,
-                    color: Colors.red,
+                : Image.asset(
+                    "assets/images/camera.png",
+                    height: 150,
                   ),
           ],
         ),
@@ -49,7 +51,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onClickFoto() async {
-    File f = await ImagePicker.pickImage(source: ImageSource.camera);
+    File f = await ImagePicker.pickImage(source: ImageSource.gallery);
 
     setState(() {
       this.file = f;
@@ -57,7 +59,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onClickUpload() async {
-    if(file != null) {
+    if (file != null) {
       String url = await UploadService.upload(file);
       print("URL: $url");
     }

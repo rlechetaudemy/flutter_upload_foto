@@ -7,6 +7,8 @@ import 'package:path/path.dart' as path;
 
 class UploadService {
   static Future<String> upload(File file) async {
+    String url = "https://carros-springboot.herokuapp.com/api/v1/upload";
+
     List<int> imageBytes = file.readAsBytesSync();
     String base64Image = convert.base64Encode(imageBytes);
 
@@ -22,11 +24,12 @@ class UploadService {
 
     String json = convert.jsonEncode(params);
 
-    print("http.upload >> " + json);
+    print("http.upload: " + url);
+    print("params: " + json);
 
     final response = await http
         .post(
-          "https://carros-springboot.herokuapp.com/api/v1/upload",
+          url,
           body: json,
           headers: headers,
         )
@@ -39,9 +42,9 @@ class UploadService {
 
     Map<String, dynamic> map = convert.json.decode(response.body);
 
-    String url = map["url"];
+    String urlFoto = map["url"];
 
-    return url;
+    return urlFoto;
   }
 
   static FutureOr<http.Response> _onTimeOut() {
