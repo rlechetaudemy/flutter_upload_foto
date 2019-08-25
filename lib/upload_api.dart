@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as path;
 
-class UploadService {
+class UploadApi {
   static Future<String> upload(File file) async {
     String url = "https://carros-springboot.herokuapp.com/api/v1/upload";
 
